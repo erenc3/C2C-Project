@@ -1,12 +1,41 @@
+<?php  
+ob_start();
+session_start();
+//error_reporting(0); // Hatalar Gizlenir = Hatalarınızı göremezsiniz... /tüm işler bittikten sonra kullanın.
+require_once 'nedmin/netting/baglan.php';
+require_once 'nedmin/production/fonksiyon.php';
+
+//Ayar tablosunda site ayarlarımızı çekiyoruz.
+$ayarsor=$db->prepare("SELECT * FROM ayar where ayar_id=:id");
+$ayarsor->execute(array(
+    'id' => 0
+    ));
+$ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
+
+?>
+
+
 <!doctype html>
 <html class="no-js" lang="">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Foxtar | Home 2</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+       <title>
+           
+       <?php if (empty($title)){
 
+            echo $ayarcek['ayar_title'];
+
+        } else{
+
+             echo $title;
+            }  ?>
+
+       </title>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <meta name="description" content="<?php echo $ayarcek['ayar_description'] ?>">
+       <meta name="keywords" content="<?php echo $ayarcek['ayar_keywords'] ?>">
+       <meta name="author" content="<?php echo $ayarcek['ayar_author'] ?>">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="img\favicon.png">
 
@@ -67,7 +96,7 @@
                             <div class="row">                         
                                 <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs">
                                     <div class="logo-area">
-                                        <a href="index.htm"><img class="img-responsive" src="img\logo.png" alt="logo"></a>
+                                        <a href="index.php"><img class="img-responsive" src="<?php echo $ayarcek['ayar_logo'] ?>" alt="logo"></a>
                                     </div>
                                 </div> 
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
