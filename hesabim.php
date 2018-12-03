@@ -1,5 +1,11 @@
 ﻿<?php 
-    require_once 'header.php'; ?>
+    require_once 'header.php';
+
+        islemkontrol();
+
+     ?>
+
+
             <!-- Header Area End Here -->
             
             <!-- Inner Page Banner Area Start Here -->
@@ -25,6 +31,29 @@
 
 
 
+                                 <?php 
+
+                        if ($_GET['durum']=="hata") {?>
+
+                        <div class="alert alert-danger">
+                            <strong>Hata!</strong> İşlem Başarısız
+                        </div>
+                            
+                        
+                            
+                        <?php } else if ($_GET['durum']=="ok") {?>
+
+                        <div class="alert alert-success">
+                            <strong>Bilgi!</strong> Kayıt Başarılı
+                        </div>
+                            
+                        
+                            
+                        <?php }
+                        ?>
+
+
+
                         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12"> 
 
 
@@ -35,7 +64,7 @@
                                         <div class="personal-info inner-page-padding"> 
 
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Mail Adresi</label>
+                                                <label class="col-sm-3 control-label">Kayıtlı Mail Adresi (Değiştiremezsiniz!)</label>
                                                 <div class="col-sm-9">
                                                     <input class="form-control" disabled="" id="first-name" value="<?php echo $kullanicicek['kullanici_mail'] ?>"  type="text">
                                                 </div>
