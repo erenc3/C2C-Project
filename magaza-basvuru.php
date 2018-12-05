@@ -249,13 +249,23 @@
                                                 </div>
                                                 </form> 
 
-                                                <?php } else{?>
+                                                <?php } 
+
+                                                  if ($kullanicicek['kullanici_magaza']==1) {?> 
 
                                                   <div class="alert alert-success">
                                                   <strong>Bilgi!</strong> Başvurunuz Onay Aşamasındadır!
                                                   <p>Başvurular genellikle 24 saat içerisinde incelenir ve sonuçlandırılır.</p>
                                                   </div>
 
+                                                  <?php }
+
+                                                    else if ($kullanicicek['kullanici_magaza']==2) {?>
+
+                                                    <div class="alert alert-success">
+                                                    <strong>Bilgi!</strong> Mağazanız Onaylandı!
+                                                    <p>Mağaza yönetim menüsünden mağazanızı yönetebilirsiniz.</p>
+                                                    </div>
 
                                                 <?php  } ?>
 
