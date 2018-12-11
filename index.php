@@ -18,76 +18,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Main Banner 1 Area End Here -->            
-            <!-- Newest Products Area Start Here -->
-            <div class="newest-products-area bg-secondary section-space-default">                
-                <div class="container">
-                    <h2 class="title-default">Öne Çıkan Ürünler</h2>  
-                </div>
-                <div class="container-fluid" id="isotope-container">
-                    <div class="isotope-classes-tab isotop-box-btn-white"> 
-                        
-                       
-                    </div>
-                    <div class="row featuredContainer">
 
-                    <?php 
-                        $urunsor=$db->prepare("SELECT * FROM urun order by urun_onecikar DESC limit 8");
-                        $urunsor->execute();
-
-                        
-
-                    while($uruncek=$urunsor->fetch(PDO::FETCH_ASSOC)) {?>
-
-
-                        <!-- Start Ürün Anasayfa Listeleme -->
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 yenigelen plugins">
-                            <div class="single-item-grid">
-                                <div class="item-img">
-                                    <img src="img\product\13.jpg" alt="product" class="img-responsive">
-                                    <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-info">
-                                        <h3><a href="#">Team Component Pro</a></h3>
-                                        <span>Joomla Component</span>
-                                        <div class="price">$15</div>
-                                    </div>
-                                    <div class="item-profile">
-                                        <div class="profile-title">
-                                            <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
-                                            <span>PsdBosS</span>
-                                        </div>
-                                        <div class="profile-rating">
-                                            <ul>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li>(<span> 05</span> )</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php } ?>
-
-                        <!-- Finish Ürün Anasayfa Listeleme -->
-
-                       
-
-                      
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- Newest Products Area End Here -->
             <!-- Trending Products Area Start Here -->
             <div class="trending-products-area section-space-default">                
                 <div class="container">
-                    <h2 class="title-default">This Week Trending Products</h2>  
+                    <h2 class="title-default">Çok Satanlar</h2>  
                 </div>
                 <div class="container=fluid">
                     <div class="fox-carousel dot-control-textPrimary" data-loop="true" data-items="4" data-margin="30" data-autoplay="true" data-autoplay-timeout="10000" data-smart-speed="2000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="true" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="true" data-r-small="2" data-r-small-nav="false" data-r-small-dots="true" data-r-medium="3" data-r-medium-nav="false" data-r-medium-dots="true" data-r-large="4" data-r-large-nav="false" data-r-large-dots="true">
@@ -269,6 +204,80 @@
                 </div>
             </div>
             <!-- Trending Products Area End Here -->
+            <!-- Main Banner 1 Area End Here -->            
+            <!-- Newest Products Area Start Here -->
+            <div class="newest-products-area bg-secondary section-space-default">                
+                <div class="container">
+                    <h2 class="title-default">Öne Çıkan Ürünler</h2>  
+                </div>
+                <div class="container-fluid" id="isotope-container">
+                    <div class="isotope-classes-tab isotop-box-btn-white"> 
+                        
+                       
+                    </div>
+                    <div class="row featuredContainer">
+
+                    <?php 
+                        $urunsor=$db->prepare("SELECT urun.urun_ad,urun.urun_id,urun.urun_fiyat,urun.urunfoto_resimyol,urun.kullanici_id,urun.urun_durum,urun.urun_onecikar,kategori.kategori_id,kategori.kategori_ad,kullanici.kullanici_id,kullanici.kullanici_ad,kullanici.kullanici_soyad,kullanici.kullanici_magazafoto FROM urun INNER JOIN kategori ON urun.kategori_id=kategori.kategori_id INNER JOIN kullanici ON urun.kullanici_id=kullanici.kullanici_id where urun_onecikar=:onecikar and urun_durum=:durum
+                        order by urun_zaman,urun_onecikar DESC limit 8");
+                        $urunsor->execute(array(
+                                'onecikar' => 1,
+                                'durum' => 1
+                        ));
+
+                        
+
+                    while($uruncek=$urunsor->fetch(PDO::FETCH_ASSOC)) {?>
+
+
+                        <!-- Start Ürün Anasayfa Listeleme -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 yenigelen plugins">
+                            <div class="single-item-grid">
+                                <div class="item-img">
+                                    <img src="<?php echo $uruncek['urunfoto_resimyol'] ?>" alt="product" class="img-responsive">
+                                    <div class="trending-sign" data-tips="Öne Çıkan Ürün"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-info">
+                                        <h3><a href="#"><?php echo $uruncek['urun_ad'] ?></a></h3>
+                                        <span><?php echo $uruncek['kategori_ad'] ?></span>
+                                        <div class="price"><?php echo $uruncek['urun_fiyat'] ?> TL</div>
+                                    </div>
+                                    <div class="item-profile">
+                                        <div class="profile-title">
+                                            <div class="img-wrapper"><img style="height: 38px; width: 38px;" src="<?php echo $uruncek['kullanici_magazafoto'] ?>" alt="profile" class="img-responsive img-circle"></div>
+                                            <span><?php echo $uruncek['kullanici_ad']." ".$uruncek['kullanici_soyad'] ?></span>
+                                        </div>
+                                        <div class="profile-rating">
+                                        <a href="#"><b>Tüm Ürünleri</b></a>
+                                            <!--<ul>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li>(<span> 05</span> )</li>
+                                            </ul>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+
+                        <!-- Finish Ürün Anasayfa Listeleme -->
+
+                       
+
+                      
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Newest Products Area End Here -->
+
+
+            
             <!-- Why Choose Area Start Here -->
             <div class="why-choose-area bg-primaryText section-space-default">                
                 <div class="container">
