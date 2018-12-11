@@ -1,163 +1,379 @@
-﻿<?php 
-include 'header.php'; 
-?>
+<?php require_once 'header.php'; ?>
 
-<div class="container">
+            <!-- Header Area End Here -->
+            <!-- Main Banner 1 Area Start Here -->
+            <div class="main-banner2-area">
+                <div class="container">
+                    <div class="main-banner2-wrapper">                       
+                        <h1>Welcome To Foxtar Market Place!</h1>
+                        <p>Premium WordPress Themes, Web Templates and Many More ...</p>
+                        <div class="banner-search-area input-group">
+                            <input class="form-control" placeholder="Search Your Keywords . . ." type="text">
+                            <span class="input-group-addon">
+                                <button type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>  
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Banner 1 Area End Here -->            
+            <!-- Newest Products Area Start Here -->
+            <div class="newest-products-area bg-secondary section-space-default">                
+                <div class="container">
+                    <h2 class="title-default">Öne Çıkan Ürünler</h2>  
+                </div>
+                <div class="container-fluid" id="isotope-container">
+                    <div class="isotope-classes-tab isotop-box-btn-white"> 
+                        
+                       
+                    </div>
+                    <div class="row featuredContainer">
 
-	<div class="clearfix"></div>
-	<div class="lines"></div>
+                    <?php 
+                        $urunsor=$db->prepare("SELECT * FROM urun order by urun_onecikar DESC limit 8");
+                        $urunsor->execute();
 
-	<!-- Slider Gelecek -->
-	<?php include 'slider.php'; ?>
+                        
 
-
-
-</div>
-<div class="f-widget featpro">
-	<div class="container">
-		<div class="title-widget-bg">
-			<div class="title-widget">Öne Çıkan Ürünler</div>
-			<div class="carousel-nav">
-				<a class="prev"></a>
-				<a class="next"></a>
-			</div>
-		</div>
-		<div id="product-carousel" class="owl-carousel owl-theme">
-
-			<?php 
-			$urunsor=$db->prepare("SELECT * FROM urun where urun_durum=:urun_durum and urun_onecikar=:urun_onecikar");
-			$urunsor->execute(array(
-				'urun_durum' => 1,
-				'urun_onecikar' => 1
-				));
-
-			
-			while($uruncek=$urunsor->fetch(PDO::FETCH_ASSOC)) {
-
-
-					$urun_id=$uruncek['urun_id'];
-					$urunfotosor=$db->prepare("SELECT * FROM urunfoto where urun_id=:urun_id order by urunfoto_sira ASC limit 1 ");
-					$urunfotosor->execute(array(
-						'urun_id' => $urun_id
-						));
-
-					$urunfotocek=$urunfotosor->fetch(PDO::FETCH_ASSOC);
-
-					
-				?>
+                    while($uruncek=$urunsor->fetch(PDO::FETCH_ASSOC)) {?>
 
 
+                        <!-- Start Ürün Anasayfa Listeleme -->
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 yenigelen plugins">
+                            <div class="single-item-grid">
+                                <div class="item-img">
+                                    <img src="img\product\13.jpg" alt="product" class="img-responsive">
+                                    <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-info">
+                                        <h3><a href="#">Team Component Pro</a></h3>
+                                        <span>Joomla Component</span>
+                                        <div class="price">$15</div>
+                                    </div>
+                                    <div class="item-profile">
+                                        <div class="profile-title">
+                                            <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                            <span>PsdBosS</span>
+                                        </div>
+                                        <div class="profile-rating">
+                                            <ul>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li>(<span> 05</span> )</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
 
-				<div class="item animated bounce">
-					<div class="productwrap">
-						<div class="pr-img">
-							<div class="hot"></div>
-							<a href="urun-<?=seo($uruncek["urun_ad"]).'-'.$uruncek["urun_id"]?>"><img  src="<?php echo $urunfotocek['urunfoto_resimyol'] ?>" alt="" class="img-responsive"></a>
-							<div class="pricetag blue"><div class="inner"><span><?php echo $uruncek['urun_fiyat'] ?> TL</span></div></div>
-						</div>
-						<span class="smalltitle"><a href="urun-<?=seo($uruncek["urun_ad"]).'-'.$uruncek["urun_id"]?>"><?php echo $uruncek['urun_ad'] ?></a></span>
-						<span class="smalldesc">Ürün Kodu.: <?php echo $uruncek['urun_id'] ?></span>
-					</div>
-				</div>
+                        <!-- Finish Ürün Anasayfa Listeleme -->
 
-				<?php } ?>
+                       
 
-			</div>
-		</div>
-	</div>
-
-
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-9"><!--Main content-->
-				<div class="title-bg">
-					<div class="title">Hakkımızda Bilgi</div>
-				</div>
-				<p class="ct">
-					<?php 
-					$hakkimizdasor=$db->prepare("SELECT * FROM hakkimizda where hakkimizda_id=:id");
-					$hakkimizdasor->execute(array(
-						'id' => 0
-						));
-					$hakkimizdacek=$hakkimizdasor->fetch(PDO::FETCH_ASSOC);
-
-					echo substr($hakkimizdacek['hakkimizda_icerik'],0,1000) ?>
-				</p>
-
-				<a href="hakkimizda" class="btn btn-default btn-red btn-sm">Devamını Oku</a>
-
-				<div class="title-bg">
-					<div class="title">Lastest Products</div>
-				</div>
-				<div class="row prdct"><!--Products-->
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-2.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice">$314</span>$199</span></div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">Black Shoes</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag"><div class="inner">$199</div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">Nikon Camera</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag"><div class="inner">$199</div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">Red T- Shirt</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag"><div class="inner">$199</div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">Nikon Camera</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-2.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag"><div class="inner">$199</div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">Black Shoes</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="productwrap">
-							<div class="pr-img">
-								<a href="product.htm"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
-								<div class="pricetag"><div class="inner">$199</div></div>
-							</div>
-							<span class="smalltitle"><a href="product.htm">Red T-Shirt</a></span>
-							<span class="smalldesc">Item no.: 1000</span>
-						</div>
-					</div>
-				</div><!--Products-->
-				<div class="spacer"></div>
-			</div><!--Main content-->
-
-			<!-- Siderbar buraya gelecek -->
-			<?php include 'sidebar.php' ?>
-		</div>
-	</div>
-
-	<?php include 'footer.php'; ?>
+                      
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Newest Products Area End Here -->
+            <!-- Trending Products Area Start Here -->
+            <div class="trending-products-area section-space-default">                
+                <div class="container">
+                    <h2 class="title-default">This Week Trending Products</h2>  
+                </div>
+                <div class="container=fluid">
+                    <div class="fox-carousel dot-control-textPrimary" data-loop="true" data-items="4" data-margin="30" data-autoplay="true" data-autoplay-timeout="10000" data-smart-speed="2000" data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="false" data-r-x-small-dots="true" data-r-x-medium="2" data-r-x-medium-nav="false" data-r-x-medium-dots="true" data-r-small="2" data-r-small-nav="false" data-r-small-dots="true" data-r-medium="3" data-r-medium-nav="false" data-r-medium-dots="true" data-r-large="4" data-r-large-nav="false" data-r-large-dots="true">
+                        <div class="single-item-grid">
+                            <div class="item-img">
+                                <img src="img\product\20.jpg" alt="product" class="img-responsive">
+                                <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <h3><a href="#">Team Component Pro</a></h3>
+                                    <span>Joomla Component</span>
+                                    <div class="price">$15</div>
+                                </div>
+                                <div class="item-profile">
+                                    <div class="profile-title">
+                                        <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                        <span>PsdBosS</span>
+                                    </div>
+                                    <div class="profile-rating">
+                                        <ul>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li>(<span> 05</span> )</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item-grid">
+                            <div class="item-img">
+                                <img src="img\product\21.jpg" alt="product" class="img-responsive">
+                                <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <h3><a href="#">Team Component Pro</a></h3>
+                                    <span>Joomla Component</span>
+                                    <div class="price">$15</div>
+                                </div>
+                                <div class="item-profile">
+                                    <div class="profile-title">
+                                        <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                        <span>PsdBosS</span>
+                                    </div>
+                                    <div class="profile-rating">
+                                        <ul>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li>(<span> 05</span> )</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item-grid">
+                            <div class="item-img">
+                                <img src="img\product\22.jpg" alt="product" class="img-responsive">
+                                <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <h3><a href="#">Team Component Pro</a></h3>
+                                    <span>Joomla Component</span>
+                                    <div class="price">$15</div>
+                                </div>
+                                <div class="item-profile">
+                                    <div class="profile-title">
+                                        <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                        <span>PsdBosS</span>
+                                    </div>
+                                    <div class="profile-rating">
+                                        <ul>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li>(<span> 05</span> )</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item-grid">
+                            <div class="item-img">
+                                <img src="img\product\23.jpg" alt="product" class="img-responsive">
+                                <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <h3><a href="#">Team Component Pro</a></h3>
+                                    <span>Joomla Component</span>
+                                    <div class="price">$15</div>
+                                </div>
+                                <div class="item-profile">
+                                    <div class="profile-title">
+                                        <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                        <span>PsdBosS</span>
+                                    </div>
+                                    <div class="profile-rating">
+                                        <ul>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li>(<span> 05</span> )</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item-grid">
+                            <div class="item-img">
+                                <img src="img\product\20.jpg" alt="product" class="img-responsive">
+                                <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <h3><a href="#">Team Component Pro</a></h3>
+                                    <span>Joomla Component</span>
+                                    <div class="price">$15</div>
+                                </div>
+                                <div class="item-profile">
+                                    <div class="profile-title">
+                                        <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                        <span>PsdBosS</span>
+                                    </div>
+                                    <div class="profile-rating">
+                                        <ul>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li>(<span> 05</span> )</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-item-grid">
+                            <div class="item-img">
+                                <img src="img\product\21.jpg" alt="product" class="img-responsive">
+                                <div class="trending-sign" data-tips="Trending"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="item-content">
+                                <div class="item-info">
+                                    <h3><a href="#">Team Component Pro</a></h3>
+                                    <span>Joomla Component</span>
+                                    <div class="price">$15</div>
+                                </div>
+                                <div class="item-profile">
+                                    <div class="profile-title">
+                                        <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                        <span>PsdBosS</span>
+                                    </div>
+                                    <div class="profile-rating">
+                                        <ul>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            <li>(<span> 05</span> )</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Trending Products Area End Here -->
+            <!-- Why Choose Area Start Here -->
+            <div class="why-choose-area bg-primaryText section-space-default">                
+                <div class="container">
+                    <h2 class="title-textPrimary">Why You Choose Foxtar Market Place?</h2>  
+                </div>
+                <div class="container">
+                    <div class="row">
+                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="why-choose-box">
+                                <a href="#"><i class="fa fa-gift" aria-hidden="true"></i></a>
+                                <h3><a href="#">Easily Buy & Sell </a></h3>
+                                <p>Dorem Ipsum is simply dummy text of the pring and typesetting industry. Lorem Ipsum has been the industry's standaum.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="why-choose-box">
+                                <a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                                <h3><a href="#">Quality Products</a></h3>
+                                <p>Dorem Ipsum is simply dummy text of the pring and typesetting industry. Lorem Ipsum has been the industry's standaum.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="why-choose-box">
+                                <a href="#"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                                <h3><a href="#">100% Secure Payment</a></h3>
+                                <p>Dorem Ipsum is simply dummy text of the pring and typesetting industry. Lorem Ipsum has been the industry's standaum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Why Choose Area End Here -->
+                 
+            <!-- Author Banner Area Start Here -->
+            <div class="author-banner-area">
+                <div class="author-banner-wrapper">
+                    <div id="ri-grid" class="author-banner-bg ri-grid header text-center">
+                        <ul class="ri-grid-list">
+                            <li><a href="#"><img src="img\banner\2.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\3.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\4.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\5.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\6.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\2.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\3.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\5.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\6.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\2.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\3.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\4.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\5.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\6.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\2.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\3.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\5.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\6.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>                            
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\2.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\3.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\5.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\6.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\2.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\3.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\5.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\6.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\7.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\8.jpg" alt=""></a></li>
+                            <li><a href="#"><img src="img\banner\9.jpg" alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="author-banner-content">
+                        <ul>
+                            <li><p>Over <span> 20,000</span> Author Are Involved Here!</p></li>
+                            <li><a href="#" class="btn-fill-textPrimary">Become A Author</a></li>
+                        </ul>
+                     </div>
+                </div>               
+            </div>
+            <!-- Author Banner Area End Here -->            
+            
+           <?php require_once 'footer.php'; ?>
