@@ -442,4 +442,37 @@ if (isset($_POST['musterimagazabasvuru'])) {
 }
 
 
+if ($_GET['urunonay']=="ok") {
+
+	$siparis_id=$_GET['siparis_id'];
+
+
+	$siparis_detayguncelle=$db->prepare("UPDATE siparis_detay SET
+		
+		siparisdetay_onay=:siparisdetay_onay
+		
+		WHERE siparisdetay_id={$_GET['siparisdetay_id']}");
+
+
+	$update=$siparis_detayguncelle->execute(array(
+
+		
+		'siparisdetay_onay' => 2
+		
+	));
+
+	if ($update) {
+		
+		Header("Location:../../siparis-detay.php?siparis_id=$siparis_id");
+
+	} else {
+
+		//Header("Location:../production/magazalar.php?durum=no");
+	}
+
+
+
+}
+
+
   ?>
