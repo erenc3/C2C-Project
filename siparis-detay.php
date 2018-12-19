@@ -6,6 +6,19 @@
 
      ?>
 
+     <head>
+  <style type="text/css">
+
+  input {
+
+    margin-left: 20px !important;
+
+  }
+
+
+</style>
+</head>
+
 
             <!-- Header Area End Here -->
             
@@ -62,7 +75,17 @@
 
                                                  $say=0;
 
-                                                while($sipariscek=$siparissor->fetch(PDO::FETCH_ASSOC)) { $say++?>
+                                                while($sipariscek=$siparissor->fetch(PDO::FETCH_ASSOC)) { $say++;
+
+
+                                                  $siparisdetay_onay=$sipariscek['siparisdetay_onay'];
+                                                  $siparisdetay_yorum=$sipariscek['siparisdetay_yorum'];
+                                                  $urun_id=$sipariscek['urun_id'];
+
+
+
+
+                                                  ?>
 
 
                                              
@@ -75,13 +98,17 @@
                                               <td><?php echo $sipariscek['urun_fiyat'] ?></td>
                                               <td><?php 
 
-                                              if ($sipariscek['siparisdetay_onay']==0) {?>
+                                              if ($sipariscek['siparisdetay_onay']==1) {?>
 
                                              <a onclick="return confirm('Ürüne Onay Veriyorsunuz Bu İşlem Geri Alınamaz');" href="nedmin/netting/kullanici.php?urunonay=ok&siparisdetay_id=<?php echo $sipariscek['siparisdetay_id'] ?>&siparis_id=<?php echo $sipariscek['siparis_id'] ?>"><button class="btn btn-warning btn-xs"> Onay Ver</button></a>
 
-                                                <?php } else if($sipariscek['siparisdetay_onay']==1){ ?>
+                                                <?php } else if($sipariscek['siparisdetay_onay']==2){ ?>
 
                                                 <button class="btn btn-success btn-xs"> Onaylandı</button>
+
+                                                <?php } else if($sipariscek['siparisdetay_onay']==0){ ?>
+
+                                                <button class="btn btn-warning btn-xs"> Teslim Edilmesi Bekleniyor</button>
 
                                                 <?php }
 
@@ -89,7 +116,7 @@
 
 
 
-                    </td>
+                                               </td>
                                              
                                             
                                             </tr>
@@ -98,13 +125,70 @@
 
                                           </tbody>
                                         </table>
-                                            
 
 
+                                      <?php 
+
+
+                                        if ($siparisdetay_onay==2 and $siparisdetay_yorum==0) {?>
+                                          
                                         
 
+                                        <!-- Yorum Alanı Start -->
                                             
+                                           <form action="nedmin/netting/kullanici.php" method="POST" class="form-horizontal" id="personal-info-form">
+                                <div class="settings-details tab-content">
+                                    <div class="tab-pane fade active in" id="Personal">
+                                        <h2 class="title-section">Deneyimini Yorumla ve Puanla</h2>
+                                        <div class="personal-info inner-page-padding"> 
 
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Puanla</label>
+                                                <div class="col-sm-9">
+                                                    <input type="radio" name="yorum_puan" value="1">1
+                                                    <input type="radio" name="yorum_puan" value="2">2
+                                                    <input type="radio" name="yorum_puan" value="3">3
+                                                    <input type="radio" name="yorum_puan" value="4">4
+                                                    <input type="radio" name="yorum_puan" value="5">5
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Yorumunuz</label>
+                                                <div class="col-sm-9">
+                                                    <textarea style="height: 200px;" class="form-control" rows="20" name="yorum_detay" placeholder="Yorumunuzu Giriniz" required="" id="company-name" type="text"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" value="<?php echo $urun_id ?>" name="urun_id">
+                                            <input type="hidden" value="<?php echo $_GET['siparis_id'] ?>" name="siparis_id">
+
+
+                                            <div class="form-group">
+                                                
+                                                <div align="right" class="col-sm-12">
+                                                    
+                                                    <button class="update-btn" name="puanyorumekle" id="login-update">Yorum ve Puanı Kaydet</button>
+                                                </div>
+                                            </div>                                        
+                                        </div> 
+                                    </div> 
+
+
+                                                                          
+                                </div> 
+
+                            </form> 
+
+                            <!-- Yorum Alanı Finish -->
+
+                            <?php } else if ($siparisdetay_onay==2 and $siparisdetay_yorum==1) {?>
+
+
+           <p>Bu ürün için oylama ve yorum yapılmıştır.</p>
+
+           <?php } ?>
                                                                                  
                                         </div> 
                                     </div> 
