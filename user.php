@@ -67,7 +67,27 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                     </div>
                                     <div align="center" class="single-item">
                                         <div class="item-title">Toplam Satış:</div>
-                                        <div class="item-name">100</div>                                       
+                                        <div class="item-name">
+                                            
+                                            <?php 
+                                            
+                                            $urunsay=$db->prepare("SELECT COUNT(kullanici_idsatici) as say FROM siparis_detay where kullanici_idsatici=:id");
+                                            $urunsay->execute(array(
+
+                                                'id'=>$_GET['kullanici_id']
+
+
+                                                ));
+
+                                            $saycek=$urunsay->fetch(PDO::FETCH_ASSOC);
+
+                                            echo $saycek['say'];
+
+                                             ?>
+
+
+
+                                        </div>                                       
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +99,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                         <h3 class="sidebar-item-title">Satıcı</h3>
                                         <div class="sidebar-author-info">
                                             <div class="sidebar-author-img">
-                                                <img src="img\profile\avatar.jpg" alt="product" class="img-responsive">
+                                                <img src="<?php echo $kullanicicek['kullanici_magazafoto'] ?>" alt="product" class="img-responsive">
                                             </div>
                                             <div class="sidebar-author-content">
                                                 <h3><?php echo $kullanicicek['kullanici_ad']?></h3>
