@@ -55,13 +55,105 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                     <div class="single-item">
                                         <div class="item-title">Puan:</div>
                                         <div class="item-details">
+
+                                            <?php 
+
+
+                                              
+                                            
+                                            $puansay=$db->prepare("SELECT COUNT(yorumlar.kullanici_id) as say, SUM(yorumlar.yorum_puan) as topla, yorumlar.*,urun.* FROM yorumlar INNER JOIN urun ON yorumlar.urun_id=urun.urun_id where urun.kullanici_id=:id");
+                                            $puansay->execute(array(
+
+                                                'id'=>$_GET['kullanici_id']
+
+
+                                                ));
+
+                                            $puancek=$puansay->fetch(PDO::FETCH_ASSOC);
+
+                                            
+                                            $puan=round($puancek['topla']/ $puancek['say']);
+                                             
+
+
+                                             ?>
                                             <ul class="default-rating">
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                                <li>(<span> 05</span> )</li>
+
+                                                   <?php           switch ($puan) {
+
+                                                                    case '5': ?>
+
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                     <li>(<span> <?php echo $puan ?></span> )</li>
+
+                                                                    <?php                                                                           
+                                                                    break;
+
+                                                                    case '4': ?>
+
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                     <li>(<span> <?php echo $puan ?></span> )</li>
+
+
+                                                                    <?php                                                                           
+                                                                    break;
+
+                                                                    case '3': ?>
+
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                     <li>(<span> <?php echo $puan ?></span> )</li>
+
+
+                                                                    <?php                                                                           
+                                                                    break;
+
+                                                                    case '2': ?>
+
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                     <li>(<span> <?php echo $puan ?></span> )</li>
+
+
+                                                                    <?php                                                                           
+                                                                    break;
+
+                                                                    case '1': ?>
+
+                                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>         
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                    <li><i style="color:grey" class="fa fa-star" aria-hidden="true"></i></li>
+                                                                     <li>(<span> <?php echo $puan ?></span> )</li>
+
+
+                                                                    <?php                                                                           
+                                                                    break;
+
+
+                                                                }
+                                                                ?>
+
+
+                                        
+
+
+                                               
                                             </ul>
                                         </div>                                       
                                     </div>
