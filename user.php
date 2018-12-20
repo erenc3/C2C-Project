@@ -257,7 +257,18 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                     <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                                 </ul>                                
                                 <ul class="sidebar-product-btn">
-                                    <li><a href="contact.htm" class="buy-now-btn" id="buy-button"><i class="fa fa-envelope-o" aria-hidden="true"></i>Mesaj Gönder</a></li>
+                                    <?php 
+
+                                     if ($_SESSION['userkullanici_id']==$_GET['kullanici_id']) {?>
+
+
+                                    <li><button disabled="" class="buy-now-btn" id="buy-button"><i class="fa fa-ban" aria-hidden="true"></i> Mesaj Gönder </button></li>
+
+                                    <?php } else {?>
+
+                                    <li><a href="mesaj-gonder" class="buy-now-btn" id="buy-button"><i class="fa fa-envelope-o" aria-hidden="true"></i>Mesaj Gönder</a></li>
+
+                                    <?php } ?>
                                   
                                 </ul>
                                
