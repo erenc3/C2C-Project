@@ -15,7 +15,7 @@
                                             $kategori_id=$kategoricek['kategori_id'];
                                             ?>
 
-                                            <li><a href="#"><?php echo $kategoricek['kategori_ad'] ?><span>(
+                                            <li><a href="kategori-<?=seo($kategoricek['kategori_ad'])."-".$kategoricek['kategori_id'] ?>"><?php echo $kategoricek['kategori_ad'] ?><span>(
 
                                             <?php 
                                             
@@ -42,7 +42,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="sidebar-item">
+                                <!--<div class="sidebar-item">
                                     <div class="sidebar-item-inner">
                                         <h3 class="sidebar-item-title">Fiyat Aralığı</h3>
                                         <div id="price-range-wrapper" class="price-range-wrapper">
@@ -54,6 +54,6 @@
                                             <button class="sidebar-full-width-btn disabled" type="submit" value="Login"><i class="fa fa-search" aria-hidden="true"></i>Ara</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         

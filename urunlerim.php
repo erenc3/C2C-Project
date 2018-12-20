@@ -65,11 +65,11 @@
                                                 while($uruncek=$urunsor->fetch(PDO::FETCH_ASSOC)) { $say++?>
 
 
-                                            
+                                             
 
                                             <tr>
                                               
-                                              <td><?php echo $say ?></td>
+                                              <td scope="row"><?php echo $say ?></td>
                                               <td><?php echo $uruncek['urun_zaman'] ?></td>
                                               <td><?php echo $uruncek['urun_ad'] ?></td>
                                               <td><a href="urun-duzenle?urun_id=<?php echo $uruncek['urun_id'] ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></td>

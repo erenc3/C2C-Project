@@ -147,7 +147,7 @@ require_once 'header.php';
                                             </div>
                                             <div class="item-profile">
                                                 <div class="profile-title">
-                                                    <div class="img-wrapper"><img src="img\profile\1.jpg" alt="profile" class="img-responsive img-circle"></div>
+                                                    <div class="img-wrapper"><img src="<?php echo $uruncek['kullanici_magazafoto'] ?>" alt="profile" class="img-responsive img-circle"></div>
                                                     <span><?php echo $uruncek['kullanici_ad']." ".substr($uruncek['kullanici_soyad'],0,1) ?>.</span>
                                                 </div>
                                                 <div class="profile-rating-info">
