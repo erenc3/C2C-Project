@@ -199,11 +199,54 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
                                         <ul class="sidebar-badges-item">
-                                            <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges4.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges5.png" alt="badges" class="img-responsive"></li>
+
+                                            <?php 
+                                            
+                                            $urunsay=$db->prepare("SELECT COUNT(kullanici_idsatici) as say FROM siparis_detay where kullanici_idsatici=:id");
+                                            $urunsay->execute(array(
+
+                                                'id'=>$_GET['kullanici_id']
+
+
+                                                ));
+
+                                            $saycek=$urunsay->fetch(PDO::FETCH_ASSOC);
+                                            
+
+                                            if ($saycek['say']>1 and $saycek['say']<=9) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                
+                                            <?php } else if ($saycek['say']>9 and $saycek['say']<=99) {?>
+
+                                                  <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                
+                                            <?php } else if ($saycek['say']>99 and $saycek['say']<=999) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
+                                                
+                                            <?php } else if ($saycek['say']>999 and $saycek['say']<=9999) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges4.png" alt="badges" class="img-responsive"></li>
+
+                                                 <?php } else if ($saycek['say']>9999) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges4.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges5.png" alt="badges" class="img-responsive"></li>
+                                                 <?php } ?>                                            
+                                            
+                                            
+                                            
+                                            
                                         </ul>
                                     </div>
                                 </div>

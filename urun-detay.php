@@ -316,7 +316,26 @@ $uruncek=$urunsor->fetch(PDO::FETCH_ASSOC);
                                     <div class="sidebar-item-inner">
                                         <ul class="sidebar-sale-info">
                                             <li><i class="fa fa-shopping-cart" aria-hidden="true"></i></li>
-                                            <li>05</li>
+                                            <li>
+                                                
+                                                <?php 
+                                            
+                                            $urunsay=$db->prepare("SELECT COUNT(urun_id) as say FROM siparis_detay where urun_id=:id");
+                                            $urunsay->execute(array(
+
+                                                'id'=>$_GET['urun_id']
+
+
+                                                ));
+
+                                            $saycek=$urunsay->fetch(PDO::FETCH_ASSOC);
+
+                                            echo $saycek['say'];
+
+                                             ?>
+
+
+                                            </li>
                                             <li>Satış</li>                                           
                                         </ul>
                                     </div>
@@ -332,13 +351,51 @@ $uruncek=$urunsor->fetch(PDO::FETCH_ASSOC);
                                                 <a href="satici-<?=seo($uruncek['kullanici_ad']."-".$uruncek['kullanici_soyad'])."-".$uruncek['kullanici_id'] ?>" class="view-profile">Profil Sayfası</a>
                                             </div> 
                                         </div>
-                                       <!-- <ul class="sidebar-badges-item">
-                                            <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges4.png" alt="badges" class="img-responsive"></li>
-                                            <li><img src="img\profile\badges5.png" alt="badges" class="img-responsive"></li>
-                                        </ul>-->
+                                       <ul class="sidebar-badges-item">
+                                           <?php 
+                                            
+                                            $urunsay=$db->prepare("SELECT COUNT(kullanici_idsatici) as say FROM siparis_detay where kullanici_idsatici=:id");
+                                            $urunsay->execute(array(
+
+                                                'id'=>$uruncek['kullanici_id']
+
+
+                                                ));
+
+                                            $saycek=$urunsay->fetch(PDO::FETCH_ASSOC);
+                                            
+
+                                            if ($saycek['say']>1 and $saycek['say']<=9) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                
+                                            <?php } else if ($saycek['say']>9 and $saycek['say']<=99) {?>
+
+                                                  <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                
+                                            <?php } else if ($saycek['say']>99 and $saycek['say']<=999) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
+                                                
+                                            <?php } else if ($saycek['say']>999 and $saycek['say']<=9999) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges4.png" alt="badges" class="img-responsive"></li>
+
+                                                 <?php } else if ($saycek['say']>9999) {?>
+
+                                                 <li><img src="img\profile\badges1.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges2.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges3.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges4.png" alt="badges" class="img-responsive"></li>
+                                                 <li><img src="img\profile\badges5.png" alt="badges" class="img-responsive"></li>
+                                                 <?php } ?>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
