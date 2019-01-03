@@ -557,6 +557,41 @@ if (isset($_POST['puanyorumekle'])) {
 
 }
 
+ if (isset($_POST['mesajgonder'])) {
+
+ 	$kullanici_gel=$_POST['kullanici_gel'];
+	
+
+
+	$kaydet=$db->prepare("INSERT INTO mesaj SET
+
+		mesaj_detay=:mesaj_detay,
+		kullanici_gel=:kullanici_gel,
+		kullanici_gon=:kullanici_gon
+		");
+
+	$insert=$kaydet->execute(array(
+
+		'mesaj_detay' => htmlspecialchars($_POST['mesaj_detay']),
+		'kullanici_gel' => htmlspecialchars($_POST['kullanici_gel']),
+		'kullanici_gon' => htmlspecialchars($_SESSION['userkullanici_id'])
+
+	));
+
+	if ($insert) {
+		
+		Header("Location:../../mesaj-gonder?durum=ok&kullanici_gel=$kullanici_gel");
+
+
+	} else {
+
+		Header("Location:../../mesaj-gonder?durum=no&kullanici_gel=$kullanici_gel");
+
+	}
+
+
+}
+
 
 
 

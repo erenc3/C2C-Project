@@ -36,14 +36,14 @@
 
                         <?php require_once 'hesap-sidebar.php'; ?>
 
-
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
 
                                  <?php 
 
                         if ($_GET['durum']=="hata") {?>
 
                         <div class="alert alert-danger">
-                            <strong>Hata!</strong> İşlem Başarısız
+                            <strong>Hata!</strong> Mesajınız Gönderilemedi..!
                         </div>
                             
                         
@@ -51,7 +51,7 @@
                         <?php } else if ($_GET['durum']=="ok") {?>
 
                         <div class="alert alert-success">
-                            <strong>Bilgi!</strong> Kayıt Başarılı
+                            <strong>Bilgi!</strong> Mesajınız Başarıyla Gönderildi..!
                         </div>
                             
                         
@@ -61,10 +61,9 @@
 
 
 
-                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12"> 
+                        
 
-
-                            <form action="nedmin/netting/adminislem.php" method="POST" enctype="multipart/form-data" class="form-horizontal" id="personal-info-form">
+                            <form action="nedmin/netting/kullanici.php" method="POST" enctype="multipart/form-data" class="form-horizontal" id="personal-info-form">
                                 <div class="settings-details tab-content">
                                     <div class="tab-pane fade active in" id="Personal">
                                         <h2 class="title-section">Mesaj Gönderme Paneli</h2>
@@ -115,6 +114,8 @@
                                                  );
 
                                             </script>
+
+                                            <input type="hidden" name="kullanici_gel" value="<?php echo $_GET['kullanici_gel'] ?>">
 
                                    
                                             <div class="form-group">
