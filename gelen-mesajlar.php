@@ -55,8 +55,12 @@
                                           <tbody>
 
                                           <?php 
-                                                $mesajsor=$db->prepare("SELECT mesaj.*,kullanici.*  FROM mesaj INNER JOIN kullanici on mesaj.kullanici_gon=kullanici.kullanici_id order by mesaj_zaman DESC");
-                                                $mesajsor->execute();
+                                                $mesajsor=$db->prepare("SELECT mesaj.*,kullanici.* FROM mesaj INNER JOIN kullanici on mesaj.kullanici_gon=kullanici.kullanici_id where mesaj.kullanici_gel=:id order by mesaj_zaman DESC");
+                                                $mesajsor->execute(array(
+
+                                                  'id' => $_SESSION['userkullanici_id']
+
+                                                  ));
 
                                                  $say=0;
 

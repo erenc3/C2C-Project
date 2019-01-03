@@ -572,7 +572,7 @@ if (isset($_POST['puanyorumekle'])) {
 
 	$insert=$kaydet->execute(array(
 
-		'mesaj_detay' => htmlspecialchars($_POST['mesaj_detay']),
+		'mesaj_detay' => $_POST['mesaj_detay'],
 		'kullanici_gel' => htmlspecialchars($_POST['kullanici_gel']),
 		'kullanici_gon' => htmlspecialchars($_SESSION['userkullanici_id'])
 
@@ -586,6 +586,42 @@ if (isset($_POST['puanyorumekle'])) {
 	} else {
 
 		Header("Location:../../mesaj-gonder?durum=no&kullanici_gel=$kullanici_gel");
+
+	}
+
+
+}
+
+
+ if (isset($_POST['mesajcevapver'])) {
+
+ 	$kullanici_gel=$_POST['kullanici_gel'];
+	
+
+
+	$kaydet=$db->prepare("INSERT INTO mesaj SET
+
+		mesaj_detay=:mesaj_detay,
+		kullanici_gel=:kullanici_gel,
+		kullanici_gon=:kullanici_gon
+		");
+
+	$insert=$kaydet->execute(array(
+
+		'mesaj_detay' => $_POST['mesaj_detay'],
+		'kullanici_gel' => htmlspecialchars($_POST['kullanici_gel']),
+		'kullanici_gon' => htmlspecialchars($_SESSION['userkullanici_id'])
+
+	));
+
+	if ($insert) {
+		
+		Header("Location:../../gelen-mesajlar?durum=ok");
+
+
+	} else {
+
+		Header("Location:../../gelen-mesajlar?durum=hata");
 
 	}
 

@@ -122,14 +122,14 @@
 
                                             </script>
 
-                                            <input type="hidden" name="kullanici_gel" value="<?php echo $_GET['kullanici_gel'] ?>">
+                                            <input type="hidden" name="kullanici_gel" value="<?php echo $_GET['kullanici_gon'] ?>">
 
                                    
                                             <div class="form-group">
                                                 
                                                 <div align="right" class="col-sm-12">
                                                     
-                                                    <button class="update-btn" name="mesajgonder" id="login-update">Mesaj Gönder</button>
+                                                    <button class="update-btn" name="mesajcevapver" id="login-update">Mesaj Gönder</button>
                                                 </div>
                                             </div>                                        
                                         </div> 
