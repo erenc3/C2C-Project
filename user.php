@@ -118,7 +118,14 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                 <ul class="sidebar-product-btn">
                                     <?php 
 
-                                     if ($_SESSION['userkullanici_id']==$_GET['kullanici_id']) {?>
+                                    if (empty($_SESSION['userkullanici_id'])) {?>
+
+
+                                    <li><a href="login.php" class="buy-now-btn" id="buy-button"><i class="fa fa-envelope-o" aria-hidden="true"></i>Mesaj Gönder</a></li>
+
+                                    <?php }
+
+                                    else if ($_SESSION['userkullanici_id']==$_GET['kullanici_id']) {?>
 
 
                                     <li><button disabled="" class="buy-now-btn" id="buy-button"><i class="fa fa-ban" aria-hidden="true"></i> Mesaj Gönder </button></li>

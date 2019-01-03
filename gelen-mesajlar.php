@@ -55,14 +55,16 @@
                                           <tbody>
 
                                           <?php 
-                                                $mesajsor=$db->prepare("SELECT mesaj.*,kullanici.*  FROM mesaj INNER JOIN kullanici on mesaj.kullanici_gel=kullanici.kullanici_id where kullanici.kullanici_id=:id order by mesaj_zaman DESC");
-                                                $mesajsor->execute(array(
-                                                    'id' => $_SESSION['userkullanici_id']
-                                                    ));
+                                                $mesajsor=$db->prepare("SELECT mesaj.*,kullanici.*  FROM mesaj INNER JOIN kullanici on mesaj.kullanici_gon=kullanici.kullanici_id order by mesaj_zaman DESC");
+                                                $mesajsor->execute();
 
                                                  $say=0;
 
-                                                while($mesajcek=$mesajsor->fetch(PDO::FETCH_ASSOC)) { $say++?>
+                                                while($mesajcek=$mesajsor->fetch(PDO::FETCH_ASSOC)) { $say++;
+
+                                                  $kullanici_gon=$mesajcek['kullanici_gon'];
+
+                                                  ?>
 
 
                                              
@@ -94,7 +96,7 @@
 
 
                                               </td>
-                                              <td><a href="mesaj-detay?mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>"><button class="btn btn-primary btn-xs">Mesajı Oku</button></a></td>
+                                              <td><a href="mesaj-detay?mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>&kullanici_gon=<?php echo $mesajcek['kullanici_gon'] ?>"><button class="btn btn-primary btn-xs">Mesajı Oku</button></a></td>
                                               
                                             </tr>
                                             
