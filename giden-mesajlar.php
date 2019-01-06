@@ -48,8 +48,8 @@
                                               <th scope="col">#</th>
                                               <th scope="col">Mesaj Tarihi</th>
                                               <th scope="col">Gönderilen Kullanıcı</th>
-                                              
                                               <th scope="col">Detay</th>
+                                              <th></th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -80,6 +80,8 @@
                                               <td><?php echo $mesajcek['kullanici_ad']." ".$mesajcek['kullanici_soyad'] ?></td>
                                               
                                               <td><a href="mesaj-detay?gidenmesaj=ok&mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>&kullanici_gon=<?php echo $mesajcek['kullanici_gon'] ?>"><button class="btn btn-primary btn-xs">Mesajı Oku</button></a></td>
+
+                                              <td><a onclick="return confirm('Bu mesajı silmek istiyor musunuz?\nİşlem geri alınamaz..!')" href="nedmin/netting/kullanici.php?gidenmesajsil=ok&mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>"><button class="btn btn-danger btn-xs">Sil</button></a></td>
                                               
                                             </tr>
                                             

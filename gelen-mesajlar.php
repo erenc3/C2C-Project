@@ -50,6 +50,7 @@
                                               <th scope="col">Gönderen</th>
                                               <th scope="col">Durum</th>
                                               <th scope="col">Detay</th>
+                                              <th></th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -101,6 +102,8 @@
 
                                               </td>
                                               <td><a href="mesaj-detay?mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>&kullanici_gon=<?php echo $mesajcek['kullanici_gon'] ?>"><button class="btn btn-primary btn-xs">Mesajı Oku</button></a></td>
+
+                                               <td><a onclick="return confirm('Bu mesajı silmek istiyor musunuz?\nİşlem geri alınamaz..!')" href="nedmin/netting/kullanici.php?gelenmesajsil=ok&mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>"><button class="btn btn-danger btn-xs">Sil</button></a></td>
                                               
                                             </tr>
                                             
