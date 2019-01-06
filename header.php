@@ -192,7 +192,27 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                         </li>
                                         <li>
                                             <div class="notify-message">
-                                                <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i><span>5</span></a>
+                                                <a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i><span>
+                                                    
+                                                <?php 
+
+                                                    $mesajsay=$db->prepare("SELECT COUNT(mesaj_okunma) as say FROM mesaj where mesaj_okunma=:id and kullanici_gel=:kullanici_id");
+                                                    $mesajsay->execute(array(
+
+                                                     'id'=> 0,
+                                                     'kullanici_id' => $_SESSION['userkullanici_id']
+
+                                                     ));
+
+                                                    $saycek=$mesajsay->fetch(PDO::FETCH_ASSOC);
+
+                                            echo $saycek['say'];
+
+
+                                                 ?>
+
+
+                                                </span></a>
                                                 <ul>
                                                     <li>
                                                         <div class="notify-message-img">
@@ -205,32 +225,6 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                                         </div>
                                                         <div class="notify-message-sign">
                                                             <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="notify-message-img">
-                                                            <img class="img-responsive" src="img\profile\2.png" alt="profile">
-                                                        </div>
-                                                        <div class="notify-message-info">
-                                                            <div class="notify-message-sender">Richi Lenal</div>
-                                                            <div class="notify-message-subject">Need HTML Help!</div>
-                                                            <div class="notify-message-date">01 Dec, 2016</div>
-                                                        </div>
-                                                        <div class="notify-message-sign">
-                                                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="notify-message-img">
-                                                            <img class="img-responsive" src="img\profile\3.png" alt="profile">
-                                                        </div>
-                                                        <div class="notify-message-info">
-                                                            <div class="notify-message-sender">PsdBosS</div>
-                                                            <div class="notify-message-subject">Psd Template Help!</div>
-                                                            <div class="notify-message-date">01 Dec, 2016</div>
-                                                        </div>
-                                                        <div class="notify-message-sign">
-                                                            <i class="fa fa-reply" aria-hidden="true"></i>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -298,6 +292,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                             <nav id="desktop-nav">
                                 <ul>
                                     <li class="active"><a href="index.php">Anasayfa</a></li>
+                                    <li><a href="kategoriler">Kategoriler</a></li>
 
                                     <?php 
                                         $kategorisor=$db->prepare("SELECT * FROM kategori where kategori_onecikar=:onecikar order by kategori_sira ASC");
@@ -308,7 +303,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 
                                      
-                                    <li><a href="#"><?php echo $kategoricek['kategori_ad'] ?></a></li>
+                                    <li><a href="kategori-<?=seo($kategoricek['kategori_ad'])."-".$kategoricek['kategori_id'] ?>"><?php echo $kategoricek['kategori_ad'] ?></a></li>
 
                                     <?php } ?>
 
