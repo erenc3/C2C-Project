@@ -86,6 +86,9 @@
                                         <h2 class="title-section">Mesaj Gönderme Paneli</h2>
                                         <div class="personal-info inner-page-padding"> 
 
+
+                                        
+
                                              <div class="form-group">
                                                 <label class="col-sm-3 control-label">Mesaj Detayı</label>
                                                 <div class="col-sm-9">
@@ -94,7 +97,9 @@
                                                 </div>
                                             </div>
 
-                                       
+                                            <?php 
+
+                                            if ($_GET['gidenmesaj']!="ok") { ?>
                                             
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Cevap Verilen Kullanıcı</label>
@@ -147,7 +152,10 @@
                                                     
                                                     <button class="update-btn" name="mesajcevapver" id="login-update">Mesaj Gönder</button>
                                                 </div>
-                                            </div>                                        
+                                            </div> 
+
+                                            <?php } ?>
+
                                         </div> 
                                     </div> 
 
