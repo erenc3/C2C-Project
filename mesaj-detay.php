@@ -11,6 +11,22 @@
 
         $mesajcek=$mesajsor->fetch(PDO::FETCH_ASSOC);
 
+        if ($mesajcek['mesaj_okunma']==0) {
+            
+            $mesajguncelle=$db->prepare("UPDATE mesaj SET 
+
+            mesaj_okunma=:mesaj_okunma
+            
+            WHERE mesaj_id={$_GET['mesaj_id']}");
+    
+            $update=$mesajguncelle->execute(array(
+
+            'mesaj_okunma' => 1
+            
+
+        ));
+        }
+
      ?>
 
 
