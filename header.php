@@ -214,19 +214,46 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 
                                                 </span></a>
                                                 <ul>
+
+
+                                                <?php 
+
+                                                    $mesajsor=$db->prepare("SELECT mesaj.*,kullanici.* FROM mesaj INNER JOIN kullanici on mesaj.kullanici_gon=kullanici.kullanici_id where mesaj.kullanici_gel=:id and mesaj.mesaj_okunma=:okunma order by mesaj_okunma,mesaj_zaman DESC limit 5");
+                                                    $mesajsor->execute(array(
+
+                                                  'id' => $_SESSION['userkullanici_id'],
+                                                  'okunma' => 0
+
+                                                    ));
+
+                                                    if ($mesajsor->rowCount()==0) {?>
+                                                        <li>
+                                                        <div class="notify-message-info">
+                                                        <div style="color:black !important" class="notify-message-subject">Hiç Mesajınız Yok!</div>
+                                                        </div>
+                                                        </li>
+                                                    <?php }
+
+                                                 while($mesajcek=$mesajsor->fetch(PDO::FETCH_ASSOC)) {?>
+
+
+
+
                                                     <li>
                                                         <div class="notify-message-img">
-                                                            <img class="img-responsive" src="img\profile\1.png" alt="profile">
+                                                            <img class="img-responsive" src="<?php echo $mesajcek['kullanici_magazafoto'] ?>" alt="profile">
                                                         </div>
                                                         <div class="notify-message-info">
-                                                            <div class="notify-message-sender">Kazi Fahim</div>
-                                                            <div class="notify-message-subject">Need WP Help!</div>
-                                                            <div class="notify-message-date">01 Dec, 2016</div>
+                                                            <div class="notify-message-sender"><?php echo $mesajcek['kullanici_ad']." ".$mesajcek['kullanici_soyad'] ?></div>
+                                                            <div class="notify-message-subject">Mesaj Detayı!</div>
+                                                            <div class="notify-message-date"><?php echo $mesajcek['mesaj_zaman'] ?></div>
                                                         </div>
                                                         <div class="notify-message-sign">
-                                                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                                            <a href="mesaj-detay?mesaj_id=<?php echo $mesajcek['mesaj_id'] ?>&kullanici_gon=<?php echo $mesajcek['kullanici_gon'] ?>"><i style="color:orange !important" class="fa fa-envelope-o" aria-hidden="true"></i></a>
                                                         </div>
                                                     </li>
+
+                                                    <?php } ?>
                                                 </ul>
                                             </div>
                                         </li>
