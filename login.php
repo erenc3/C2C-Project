@@ -4,7 +4,7 @@
             <!-- Registration Page Area Start Here -->
             <div class="registration-page-area bg-secondary section-space-bottom">
                 <div class="container">
-                    <h2 class="title-section">Üye Girişi</h2>
+                    <h2 class="title-section">Üye Giriş İşlemleri</h2>
                     <div class="registration-details-area inner-page-padding">
 
 
@@ -22,6 +22,14 @@
 
                 <div class="alert alert-success">
                     <strong>Bilgi!</strong> Başarıyla Çıkış Yapıldı...
+                </div>
+                    
+                
+                    
+                <?php } else if ($_GET['durum']=="kayitok") {?>
+
+                <div class="alert alert-success">
+                    <strong>Bilgi!</strong> Kaydınız Başarılı..! Giriş Yapabilirsiniz...
                 </div>
                     
                 
@@ -48,7 +56,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">                                          
                                     <div class="form-group">
                                         <label class="control-label" for="last-name">Şifreniz *</label>
-                                        <input type="text" id="last-name" required="" placeholder="Şifrenizi Giriniz." name="kullanici_password" class="form-control">
+                                        <input type="password" id="last-name" required="" placeholder="Şifrenizi Giriniz." name="kullanici_password" class="form-control">
                                     </div>
                                 </div>
                             </div>
