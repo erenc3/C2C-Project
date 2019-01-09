@@ -33,6 +33,11 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
     
 }
 
+if (basename($_SERVER['PHP_SELF'])==basename(__FILE__)) {
+    
+    exit("Bu sayfaya erişim yasak");
+}
+
 ?>
 
 
@@ -280,7 +285,29 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                                                     </div>
                                                     <div class="user-account-title">
                                                         <div class="user-account-name"><?php echo $kullanicicek['kullanici_ad']." ".substr($kullanicicek['kullanici_soyad'], 0,1)?>.</div>
-                                                        <div class="user-account-balance">$171.00</div>
+                                                        <div class="user-account-balance">
+                                                            
+                                                        <?php 
+
+                                                            $siparissor=$db->prepare("SELECT SUM(urun_fiyat) as toplam FROM siparis_detay where kullanici_idsatici=:kullanici_id");
+                                                            $siparissor->execute(array(
+                                                             'kullanici_id' => $_SESSION['userkullanici_id']
+                                                                ));
+
+
+                                                             $sipariscek=$siparissor->fetch(PDO::FETCH_ASSOC);
+
+                                                             if (isset($sipariscek['toplam'])) {
+                                                                echo $sipariscek['toplam']. " TL";
+                                                             } else{
+                                                                echo "0.00 TL";
+                                                             }
+
+                                                             
+                                                         ?>
+
+
+                                                        </div>
                                                     </div>
                                                     <div class="user-account-dropdown">
                                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
